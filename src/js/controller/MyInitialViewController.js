@@ -27,7 +27,7 @@ export default class MyInitialViewController extends mwf.ViewController {
     async oncreate() {
         // TODO: do databinding, set listeners, initialise the view
         var helloEl = document.createElement("h1");
-        helloEl.textContent = "Hello Mobile World...";
+        helloEl.textContent = "Hello Mobile World from Leander";
         this.root.appendChild(helloEl);
 
         // call the superclass once creation is done
