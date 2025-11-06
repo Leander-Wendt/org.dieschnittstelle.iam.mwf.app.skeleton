@@ -50,6 +50,9 @@ export default class ListViewViewController extends mwf.ViewController {
      */
     bindListItemView(listviewid, itemview, itemobj) {
         // TODO: implement how attributes of itemobj shall be displayed in itemview
+        itemview.root.getElementsByTagName("img")[0].src = itemobj.src;
+        itemview.root.getElementsByTagName("h2")[0].textContent = itemobj.title;
+        itemview.root.getElementsByTagName("h3")[0].textContent = itemobj.added;
     }
 
     /*
@@ -58,6 +61,7 @@ export default class ListViewViewController extends mwf.ViewController {
      */
     onListItemSelected(itemobj, listviewid) {
         // TODO: implement how selection of itemobj shall be handled
+        alert("Element " + itemobj.title + " wurde ausgewählt!");
     }
 
     /*
