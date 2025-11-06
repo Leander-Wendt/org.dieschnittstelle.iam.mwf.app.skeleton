@@ -1,7 +1,7 @@
 /**
  * @author Jörn Kreutel
  */
-import {mwf} from "vfh-iam-mwf-base";
+import {GenericCRUDImplLocal, mwf} from "vfh-iam-mwf-base";
 import * as entities from "../model/MyEntities";
 
 export default class ListViewViewController extends mwf.ViewController {
@@ -12,6 +12,7 @@ export default class ListViewViewController extends mwf.ViewController {
     // custom instance attributes for this controller
     items;
     addNewMediaItemElement;
+    crudops;
 
     constructor() {
         super();
@@ -24,6 +25,7 @@ export default class ListViewViewController extends mwf.ViewController {
             new
             entities.MediaItem("m3", "https://picsum.photos/150/200")
         ];
+        this.crudops = GenericCRUDImplLocal.newInstance("MediaItem");
     }
 
     /*
@@ -31,7 +33,24 @@ export default class ListViewViewController extends mwf.ViewController {
      */
     async oncreate() {
         // TODO: do databinding, set listeners, initialise the view
-        this.initialiseListview(this.items);
+        this.addNewMediaItemElement = this.root.querySelector("#addNewMediaItem");
+
+        this.addNewMediaItemElement.onclick = (() => {
+            this.addToListview(new entities.MediaItem("m new", "https://picsum.photos/100/100"));
+        });
+
+        this.addNewMediaItemElement.onclick = (() => {
+            this.crudops.create(new entities.MediaItem("m", "https://picsum.photos/100/100")).then((created) => {
+                    this.addToListview(created);
+                }
+            );
+        });
+
+        this.crudops.readAll().then((items) => {
+            this.initialiseListview(items);
+        });
+
+        // this.initialiseListview(this.items);
         // call the superclass once creation is done
         super.oncreate();
     }
@@ -51,7 +70,7 @@ export default class ListViewViewController extends mwf.ViewController {
     bindListItemView(listviewid, itemview, itemobj) {
         // TODO: implement how attributes of itemobj shall be displayed in itemview
         itemview.root.getElementsByTagName("img")[0].src = itemobj.src;
-        itemview.root.getElementsByTagName("h2")[0].textContent = itemobj.title;
+        itemview.root.getElementsByTagName("h2")[0].textContent = itemobj.title + itemobj._id;
         itemview.root.getElementsByTagName("h3")[0].textContent = itemobj.added;
     }
 
@@ -61,7 +80,7 @@ export default class ListViewViewController extends mwf.ViewController {
      */
     onListItemSelected(itemobj, listviewid) {
         // TODO: implement how selection of itemobj shall be handled
-        alert("Element " + itemobj.title + " wurde ausgewählt!");
+        alert("Element " + itemobj.title + itemobj._id + " wurde ausgewählt!");
     }
 
     /*
