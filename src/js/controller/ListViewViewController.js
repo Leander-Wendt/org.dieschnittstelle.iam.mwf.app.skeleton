@@ -55,6 +55,19 @@ export default class ListViewViewController extends mwf.ViewController {
         super.oncreate();
     }
 
+    deleteItem(item) {
+        this.crudops.delete(item._id).then(() => {
+            this.removeFromListview(item._id);
+        });
+    }
+
+    editItem(item) {
+        item.title = (item.title + item.title);
+        this.crudops.update(item._id, item).then(() => {
+            this.updateInListview(item._id, item);
+        });
+    }
+
     /*
      * for views that initiate transitions to other views
      * NOTE: return false if the view shall not be returned to, e.g. because we immediately want to display its previous view. Otherwise, do not return anything.
