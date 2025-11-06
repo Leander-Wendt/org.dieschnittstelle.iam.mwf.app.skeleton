@@ -41,7 +41,7 @@ export class MediaItem extends EntityManager.Entity {
 
     get mediaType() {
         if (this.contentType) {
-            var index = this.contentType.indexOf("/");
+            const index = this.contentType.indexOf("/");
             if (index > -1) {
                 return this.contentType.substring(0, index);
             } else {
