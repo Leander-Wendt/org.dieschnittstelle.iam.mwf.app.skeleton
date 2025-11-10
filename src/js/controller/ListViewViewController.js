@@ -18,12 +18,9 @@ export default class ListViewViewController extends mwf.ViewController {
         super();
         console.log("ListviewViewController()");
         this.items = [
-            new
-            entities.MediaItem("m1", "https://picsum.photos/100/100"),
-            new
-            entities.MediaItem("m2", "https://picsum.photos/200/150"),
-            new
-            entities.MediaItem("m3", "https://picsum.photos/150/200")
+            new entities.MediaItem("m1", "https://picsum.photos/100/100"),
+            new entities.MediaItem("m2", "https://picsum.photos/200/150"),
+            new entities.MediaItem("m3", "https://picsum.photos/150/200")
         ];
         this.crudops = GenericCRUDImplLocal.newInstance("MediaItem");
     }
@@ -91,6 +88,7 @@ export default class ListViewViewController extends mwf.ViewController {
      */
     onListItemMenuItemSelected(menuitemview, itemobj, listview) {
         // TODO: implement how selection of the option menuitemview for itemobj shall be handled
+        super.onListItemMenuItemSelected(menuitemview, itemobj, listview);
     }
 
     /*
