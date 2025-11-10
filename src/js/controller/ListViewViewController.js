@@ -1,7 +1,7 @@
 /**
  * @author Jörn Kreutel
  */
-import {GenericCRUDImplLocal, mwf} from "vfh-iam-mwf-base";
+import {mwf} from "vfh-iam-mwf-base";
 import * as entities from "../model/MyEntities";
 
 export default class ListViewViewController extends mwf.ViewController {
@@ -12,7 +12,8 @@ export default class ListViewViewController extends mwf.ViewController {
     // custom instance attributes for this controller
     items;
     addNewMediaItemElement;
-    crudops;
+
+    // crudops;
 
     constructor() {
         super();
@@ -22,7 +23,6 @@ export default class ListViewViewController extends mwf.ViewController {
             new entities.MediaItem("m2", "https://picsum.photos/200/150"),
             new entities.MediaItem("m3", "https://picsum.photos/150/200")
         ];
-        this.crudops = GenericCRUDImplLocal.newInstance("MediaItem");
     }
 
     /*
@@ -37,13 +37,17 @@ export default class ListViewViewController extends mwf.ViewController {
         });
 
         this.addNewMediaItemElement.onclick = (() => {
-            this.crudops.create(new entities.MediaItem("m", "https://picsum.photos/100/100")).then((created) => {
-                    this.addToListview(created);
-                }
-            );
+            // this.crudops.create(new entities.MediaItem("m","https://picsum.photos/100/100")).then((created) => {
+            // this.addToListview(created);
+            //});
+            this.createNewItem();
         });
 
-        this.crudops.readAll().then((items) => {
+        /*this.crudops.readAll().then((items) => {
+            this.initialiseListview(items);
+        });*/
+
+        entities.MediaItem.readAll().then((items) => {
             this.initialiseListview(items);
         });
 
@@ -52,15 +56,30 @@ export default class ListViewViewController extends mwf.ViewController {
         super.oncreate();
     }
 
+    createNewItem() {
+        const newItem = new entities.MediaItem("m", "https://picsum.photos/100/100");
+        newItem.create().then(() => {
+            this.addToListview(newItem);
+        });
+    }
+
     deleteItem(item) {
-        this.crudops.delete(item._id).then(() => {
+        //this.crudops.delete(item._id).then(() => {
+        // this.removeFromListview(item._id);
+        //});
+
+        item.delete().then(() => {
             this.removeFromListview(item._id);
         });
     }
 
     editItem(item) {
         item.title = (item.title + item.title);
-        this.crudops.update(item._id, item).then(() => {
+        //this.crudops.update(item._id,item).then(() => {
+        // this.updateInListview(item._id,item);
+        //});
+
+        item.update().then(() => {
             this.updateInListview(item._id, item);
         });
     }

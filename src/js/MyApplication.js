@@ -2,6 +2,8 @@
  * Updated by master on 21.02.24.
  */
 import {EntityManager, GenericCRUDImplLocal, mwf} from "vfh-iam-mwf-base";
+import * as GenericCRUDImplRemote from "vfh-iam-mwf-base/src/js/mwf/crud/mwfGenericCRUDImplLocal";
+import * as entities from "./model/MyEntities";
 
 class MyApplication extends mwf.Application {
 
@@ -28,6 +30,12 @@ class MyApplication extends mwf.Application {
         //this.registerCRUD("MyEntity", this.CRUDOPS.REMOTE, GenericCRUDImplRemote.newInstance("MyEntity"));
 
         // TODO: do any further application specific initialisations here
+        this.registerEntity("MediaItem", entities.MediaItem, true);
+        this.registerCRUD("MediaItem", this.CRUDOPS.LOCAL, GenericCRUDImplLocal.newInstance("MediaItem"));
+        this.registerCRUD("MediaItem", this.CRUDOPS.REMOTE, GenericCRUDImplRemote.newInstance("MediaItem"));
+
+        // activate the local crud operations
+        this.initialiseCRUD(this.CRUDOPS.LOCAL, EntityManager);
 
         // THIS MUST NOT BE FORGOTTEN: initialise the entity manager!
         EntityManager.initialise();
