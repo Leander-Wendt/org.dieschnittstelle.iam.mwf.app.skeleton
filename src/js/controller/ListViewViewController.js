@@ -32,9 +32,9 @@ export default class ListViewViewController extends mwf.ViewController {
         // TODO: do databinding, set listeners, initialise the view
         this.addNewMediaItemElement = this.root.querySelector("#addNewMediaItem");
 
-        this.addNewMediaItemElement.onclick = (() => {
+        /*this.addNewMediaItemElement.onclick = (() => {
             this.addToListview(new entities.MediaItem("m new", "https://picsum.photos/100/100"));
-        });
+        });*/
 
         this.addNewMediaItemElement.onclick = (() => {
             // this.crudops.create(new entities.MediaItem("m","https://picsum.photos/100/100")).then((created) => {
@@ -56,7 +56,7 @@ export default class ListViewViewController extends mwf.ViewController {
         this.addListener(new mwf.EventMatcher("crud", "updated", "MediaItem"), ((event) => {
             this.updateInListview(event.data._id, event.data);
         }));
-        
+
         this.addListener(new mwf.EventMatcher("crud", "deleted", "MediaItem"), ((event) => {
             this.removeFromListview(event.data);
         }));
@@ -83,7 +83,7 @@ export default class ListViewViewController extends mwf.ViewController {
                 submitForm: ((event) => {
                     event.original.preventDefault();
                     newItem.create().then(() => {
-                        this.addToListview(newItem);
+                        // this.addToListview(newItem);
                     });
                     this.hideDialog();
                 })
@@ -93,7 +93,7 @@ export default class ListViewViewController extends mwf.ViewController {
 
     deleteItem(item) {
         item.delete(() => {
-            this.removeFromListview(item._id);
+            // this.removeFromListview(item._id);
         });
     }
 
@@ -104,7 +104,7 @@ export default class ListViewViewController extends mwf.ViewController {
                 submitForm: ((event) => {
                     event.original.preventDefault();
                     item.update().then(() => {
-                        this.updateInListview(item._id, item);
+                        // this.updateInListview(item._id, item);
                     });
                     this.hideDialog();
                 }),
@@ -122,7 +122,7 @@ export default class ListViewViewController extends mwf.ViewController {
      */
     async onReturnFromNextView(nextviewid, returnValue, returnStatus) {
         if (nextviewid == "mediaReadview" && returnValue && returnValue.deletedItem) {
-            this.removeFromListview(returnValue.deletedItem._id);
+            // this.removeFromListview(returnValue.deletedItem._id);
         }
     }
 
