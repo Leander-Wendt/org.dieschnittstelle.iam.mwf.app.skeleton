@@ -22,7 +22,8 @@ mwf.app.components = {
     /* application modules */
     MyApplication,
     MyInitialViewController,
-    ListViewViewController
+    ListViewViewController,
+    ReadviewViewController
     // TODO-REPEATED: export any further view controllers here
 }
 
