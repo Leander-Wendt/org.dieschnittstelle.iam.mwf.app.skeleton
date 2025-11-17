@@ -43,6 +43,12 @@ export default class ListViewViewController extends mwf.ViewController {
             this.createNewItem();
         });
 
+        this.addListener(new
+            mwf.EventMatcher("crud", "deleted", "MediaItem"), ((event) => {
+                this.removeFromListview(event.data);
+            })
+        );
+
         /*this.crudops.readAll().then((items) => {
             this.initialiseListview(items);
         });*/
@@ -74,11 +80,7 @@ export default class ListViewViewController extends mwf.ViewController {
     }
 
     deleteItem(item) {
-        //this.crudops.delete(item._id).then(() => {
-        // this.removeFromListview(item._id);
-        //});
-
-        item.delete().then(() => {
+        item.delete(() => {
             this.removeFromListview(item._id);
         });
     }
@@ -107,7 +109,9 @@ export default class ListViewViewController extends mwf.ViewController {
      * NOTE: return false if the view shall not be returned to, e.g. because we immediately want to display its previous view. Otherwise, do not return anything.
      */
     async onReturnFromNextView(nextviewid, returnValue, returnStatus) {
-        // TODO: check from which view, and possibly with which status, we are returning, and handle returnValue accordingly
+        if (nextviewid == "mediaReadview" && returnValue && returnValue.deletedItem) {
+            this.removeFromListview(returnValue.deletedItem._id);
+        }
     }
 
     /*
