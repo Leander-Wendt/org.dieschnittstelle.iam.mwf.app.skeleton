@@ -2,12 +2,15 @@
  * @author Jörn Kreutel
  */
 import {mwf} from "vfh-iam-mwf-base";
+import * as entities from "../model/MyEntities";
 
 export default class ReadviewViewController extends mwf.ViewController {
 
     // instance attributes set by mwf after instantiation
     args;
     root;
+    viewProxy;
+
     // TODO-REPEATED: declare custom instance attributes for this controller
 
     constructor() {
@@ -21,6 +24,19 @@ export default class ReadviewViewController extends mwf.ViewController {
      */
     async oncreate() {
         // TODO: do databinding, set listeners, initialise the view
+        const mediaItem = new
+        entities.MediaItem("m", "https://picsum.photos/300/400");
+        this.viewProxy =
+            this.bindElement("mediaReadviewTemplate", {
+                item:
+                mediaItem
+            }, this.root).viewProxy;
+
+        this.viewProxy.bindAction("deleteItem", (() => {
+            mediaItem.delete().then(() => {
+                this.previousView();
+            })
+        }));
 
         // call the superclass once creation is done
         super.oncreate();
