@@ -111,15 +111,6 @@ export default class ListViewViewController extends mwf.ViewController {
     }
 
     /*
-     * for views with listviews: react to the selection of a listitem
-     * TODO: delete if no listview is used or if item selection is specified by targetview/targetaction
-     */
-    onListItemSelected(itemobj, listviewid) {
-        // TODO: implement how selection of itemobj shall be handled
-        this.nextView("mediaReadview", {item: itemobj});
-    }
-
-    /*
      * for views with listviews: react to the selection of a listitem menu option
      * TODO: delete if no listview is used or if item selection is specified by targetview/targetaction
      */
