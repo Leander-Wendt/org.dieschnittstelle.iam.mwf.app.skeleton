@@ -55,13 +55,16 @@
      data-mwf-viewcontroller="GenericDialogTemplateViewController">
 
     <main>
-        <h2>Neues Medium</h2>
+        <h2>{{#if item.created}}Medium editieren{{else}}Neues Medium{{/if}}</h2>
         <form id="itemEditForm" on-submit="submitForm">
             <input autocomplete="off" class="mwf-autofocus" name="title" placeholder="Titel" required="required"
                    type="text" value="{{item.title}}"/>
             <div class="mwf-buttonbar">
-                <button class="mwf-left-align mwf-button" on-click="deleteItem" type="button">Löschen</button>
-                <input class="mwf-button-prio mwf-right-align mwf-button" type="submit" value="Hinzufügen"/>
+                <button class="mwf-left-align mwf-button" disabled="{{#unless item.created}}disabled{{/unless}}"
+                        on-click="deleteItem" type="button">Löschen
+                </button>
+                <input class="mwf-button-prio mwf-right-align mwf-button" type="submit"
+                       value="{{#if item.created}}Ändern{{else}}Hinzufügen{{/if}}"/>
             </div>
         </form>
     </main>
