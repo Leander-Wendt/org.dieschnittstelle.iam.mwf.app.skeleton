@@ -12,6 +12,7 @@ import MyInitialViewController from "./controller/MyInitialViewController.js";
 /* application libraries: model */
 // TODO-REPEATED: import any further view controllers here
 import ListViewViewController from "./controller/ListViewViewController";
+import ReadviewViewController from "./controller/ReadviewViewController";
 
 // TODO-REPEATED: import any further view controllers here
 
