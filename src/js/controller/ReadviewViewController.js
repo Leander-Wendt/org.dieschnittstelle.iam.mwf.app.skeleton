@@ -2,7 +2,6 @@
  * @author Jörn Kreutel
  */
 import {mwf} from "vfh-iam-mwf-base";
-import * as entities from "../model/MyEntities";
 
 export default class ReadviewViewController extends mwf.ViewController {
 
@@ -24,8 +23,7 @@ export default class ReadviewViewController extends mwf.ViewController {
      */
     async oncreate() {
         // TODO: do databinding, set listeners, initialise the view
-        const mediaItem = new
-        entities.MediaItem("m", "https://picsum.photos/300/400");
+        const mediaItem = this.args.item;
         this.viewProxy =
             this.bindElement("mediaReadviewTemplate", {
                 item:
