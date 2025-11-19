@@ -31,10 +31,12 @@ export default class ReadviewViewController extends mwf.ViewController {
             }, this.root).viewProxy;
 
         this.viewProxy.bindAction("deleteItem", (() => {
-            mediaItem.delete().then(() => {
-                this.notifyListeners(new mwf.Event("crud", "deleted", "MediaItem", mediaItem._id));
-                this.previousView({deletedItem: mediaItem});
-            })
+            if (confirm("Wirklich löschen?")) {
+                mediaItem.delete().then(() => {
+                    this.notifyListeners(new mwf.Event("crud", "deleted", "MediaItem", mediaItem._id));
+                    this.previousView({deletedItem: mediaItem});
+                })
+            }
         }));
 
         // call the superclass once creation is done

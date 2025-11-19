@@ -92,9 +92,11 @@ export default class ListViewViewController extends mwf.ViewController {
     }
 
     deleteItem(item) {
-        item.delete(() => {
-            // this.removeFromListview(item._id);
-        });
+        if (confirm("Wirklich löschen?")) {
+            item.delete(() => {
+                // this.removeFromListview(item._id);
+            });
+        }
     }
 
     editItem(item) {
@@ -109,8 +111,10 @@ export default class ListViewViewController extends mwf.ViewController {
                     this.hideDialog();
                 }),
                 deleteItem: ((event) => {
-                    this.deleteItem(item);
-                    this.hideDialog();
+                    if (confirm("Wirklich löschen?")) {
+                        this.deleteItem(item);
+                        this.hideDialog();
+                    }
                 })
             }
         });
